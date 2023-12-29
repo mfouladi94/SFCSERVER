@@ -1,20 +1,23 @@
 version: '3.9'
 
+name:  boilerplate_raw_change_me
+
 services:
+
   postgres:
-    container_name: postgres_boilerplate
+    container_name: postgres_${PROJECT_NAME}
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - ./pg_data:/var/lib/postgresql/data
 
   pgadmin:
-    container_name: pgadmin_boilerplate
+    container_name: pgadmin_${PROJECT_NAME}
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
@@ -26,23 +29,39 @@ services:
       - postgres
 
   redis:
-    container_name: redis_boilerplate
+    container_name: redis_${PROJECT_NAME}
     image: redis:latest
+    ports:
+      - "6379:6379"
+  nginx:
+    container_name: nginx_${PROJECT_NAME}
+    image: nginx:latest
+    volumes:
+      - ./NGINX:/etc/nginx/conf.d
+      - static_volume:/app/static/
+      - media_volume:/app/media/
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
   backend:
-    container_name: backend_boilerplate
+    container_name: backend_server
     build:
       context: .
       dockerfile: Docker/DockerfileBackend
       args:
         ENV_FILE: .env
     ports:
-      - "8000:8000"
+      - "8005:8000"
+    volumes:
+      - static_volume:/app/static/
+      - media_volume:/app/media/
     depends_on:
       - postgres
       - redis
 
 
-
 volumes:
-  pg_data:
+  static_volume:
+  media_volume:
