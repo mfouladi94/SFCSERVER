@@ -1,13 +1,34 @@
 # Django api boilerplate
 
 --------
+.1 اعلام تاخیر سفارش
+
+.2 درخواست اختصاص یافتن سفارش به کارمند جهت بررسی
+
+.3 دریافت گزارش تاخیر فروشگاه ها
+
+--------
+
+اعتبار سنجی
+
+● در طول فعالیت سیستم هیچ گاه نباید شرایطی پیش بیاید که:
+
+.1 زودتر از به اتمام رسیدن زمان time_delivery، سفارش وارد فرایند اعلام تاخیر شود.
+
+.2 سفارشی که قبلا به صف تاخیر اضافه شده و هنوز بررسی نشده است، مجددا به صف اضافه شود.
+
+.3 سفارشی که از طریق صف به یک کارمند اختصاص یافته تا زمانی که بررسی نشده است نباید به کارمند دیگری اختصاص یابد.
+
+.4 کارمندی که حداقل یک تاخیر در حال بررسی دارد تا زمان بررسی آن نباید سفارش دیگری به وی اختصاص یابد.
+
+
 
 ### Based on Django , Drf : Rest Api
-
-- >This template uses DRF for api interfaces
-- > Change sample.env file to configure environment variables based on your requirements   then rename it to : .env 
-
 ### DB : Postgresql
-
 ### Docker : support  
 ### Docker-Compose  : support  
+
+# # To run project :
+1- set .env file
+
+2- execute docker compose up -d --build 

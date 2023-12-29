@@ -4,6 +4,7 @@ from .api import *
 
 urlpatterns = [
     path('signup/', signup),
+    path('login/', login_by_username_phone_email),
     path('profile/', ProfileApi.as_view()),
 
 ]
