@@ -31,7 +31,7 @@ class DelayReportApi(APIView):
         try:
             order = Order.objects.get(pk=order_id)
         except Order.DoesNotExist:
-            return APIResponse(status=NOK, messages=serializer.errors, code=CODE_Failed)
+            return APIResponse(status=NOK, messages="order does not exist", code=CODE_Failed)
 
         # already reported
         already_reported = DelayReport.objects.filter(order=order, resolved=False).first()
