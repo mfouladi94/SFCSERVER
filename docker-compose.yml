@@ -1,6 +1,6 @@
 version: '3.9'
 
-name:  boilerplate_raw_change_me
+name:  SFC
 
 services:
 
